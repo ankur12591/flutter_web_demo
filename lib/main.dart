@@ -1,9 +1,11 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wb_ui_demo/common/theme.dart';
 import 'package:flutter_wb_ui_demo/views/homeScreen.dart';
 
-void main() {
+Future<void> main() async {
+
   runApp(
     EasyDynamicThemeWidget(
       child: MyApp(),
