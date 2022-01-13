@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wb_ui_demo/widgets/responsive.dart';
 
 class FloatingQuickAccessBar extends StatefulWidget {
   const FloatingQuickAccessBar({
@@ -69,10 +70,58 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
       child: Padding(
         padding: EdgeInsets.only(
           top: widget.screenSize.height * 0.40,
-          left: widget.screenSize.width / 5,
-          right: widget.screenSize.width / 5,
+          left: ResponsiveWidget.isSmallScreen(context)
+              ? widget.screenSize.width / 12
+              : widget.screenSize.width / 5,
+          right: ResponsiveWidget.isSmallScreen(context)
+              ? widget.screenSize.width / 12
+              : widget.screenSize.width / 5,
         ),
-        child: Card(
+        child: ResponsiveWidget.isSmallScreen(context)
+            ? Column(
+          children: [
+            ...Iterable<int>.generate(items.length).map(
+                  (int pageIndex) => Padding(
+                padding:
+                EdgeInsets.only(top: widget.screenSize.height / 80),
+                child: Card(
+                  color: Theme.of(context).cardColor,
+                  elevation: 4,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: widget.screenSize.height / 45,
+                        bottom: widget.screenSize.height / 45,
+                        left: widget.screenSize.width / 20),
+                    child: Row(
+                      children: [
+                        Icon(
+                          icons[pageIndex],
+                          color: Theme.of(context).iconTheme.color,
+                        ),
+                        SizedBox(width: widget.screenSize.width / 20),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          onTap: () {},
+                          child: Text(
+                            items[pageIndex],
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .button
+                                    .color,
+                                fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        )
+            : Card(
           elevation: 5,
           child: Padding(
             padding: EdgeInsets.only(
